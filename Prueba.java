@@ -1,19 +1,3 @@
-fuentes
-marcos
-juan
-izanfsdfs
-
-el real madrid cf tiene mas roña que el pelo de un gitano
-
-Juan es el mas guapo
-
-
-dasdadsassdadasdasdasdasddsasd
-
-
-
-lllllllllllllllllllllllllllll
-
 // import java.io.*;
 // import java.nio.file.*;
 // import java.security.SecureRandom;
@@ -127,3 +111,5 @@ public class CompressAndEncrypt {
 // Comprimir -> Ecnriptar 
 //Interfaz grafica YA !!
 //Como hacerlo con N archivos en un archivo
+
+// C:\Users\Alvaro\Desktop\loicnestor.png
