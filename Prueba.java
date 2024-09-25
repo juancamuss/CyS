@@ -123,3 +123,7 @@ public class CompressAndEncrypt {
         return Base64.getEncoder().encodeToString(encrypted);
     }
 }
+
+// Comprimir -> Ecnriptar 
+//Interfaz grafica YA !!
+//Como hacerlo con N archivos en un archivo
