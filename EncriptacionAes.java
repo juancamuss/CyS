@@ -21,7 +21,7 @@ public class AESExample {
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
 
             // Crear una instancia del cifrador AES en modo CBC con relleno PKCS5
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
 
             // Inicializar el cifrador en modo ENCRYPT_MODE con la clave secreta y el IV
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
