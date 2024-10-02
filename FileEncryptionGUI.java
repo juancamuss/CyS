@@ -208,6 +208,36 @@ class AESFileEncryption {
             if (output != null) fos.write(output);
         }
     }
+
+     public static File compressFilesToZip(List<String> filePaths, String zipFilePath) throws IOException {
+        // Crear un objeto FileOutputStream para el archivo ZIP de salida
+        try (FileOutputStream fos = new FileOutputStream(zipFilePath);
+             // Crear un objeto ZipOutputStream a partir del FileOutputStream
+             ZipOutputStream zos = new ZipOutputStream(fos)) {
+            // Iterar sobre la lista de archivos
+            for (String filePath : filePaths) {
+                File file = new File(filePath);
+                // Crear un objeto FileInputStream para el archivo actual
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    // Crear un objeto ZipEntry con el nombre del archivo y añadirlo al ZipOutputStream
+                    ZipEntry zipEntry = new ZipEntry(file.getName());
+                    zos.putNextEntry(zipEntry);
+
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    // Leer el contenido del archivo y escribirlo en el ZipOutputStream
+                    while ((bytesRead = fis.read(buffer)) != -1) {
+                        zos.write(buffer, 0, bytesRead);
+                    }
+                    // Cerrar la entrada del archivo en el ZipOutputStream
+                    zos.closeEntry();
+                }
+            }
+        }
+        // Retornar el archivo ZIP comprimido
+        return new File(zipFilePath);
+    }
+}
 }
 
 /*

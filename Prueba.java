@@ -112,4 +112,6 @@ public class CompressAndEncrypt {
 //Interfaz grafica YA !!
 //Como hacerlo con N archivos en un archivo
 
-// C:\Users\Alvaro\Desktop\loicnestor.png
+
+
+
