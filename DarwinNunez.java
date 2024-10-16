@@ -1,10 +1,14 @@
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 import java.io.*;
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 import java.util.Base64;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -29,9 +33,14 @@ public class DarwinNunez {
             SecretKey secretKey = keyGen.generateKey();
             byte[] privateKey = secretKey.getEncoded();
 
+            // Derivar una clave AES válida a partir de la contraseña
+            byte[] salt = new byte[16];
+            SecureRandom random = new SecureRandom();
+            random.nextBytes(salt);
+            SecretKeySpec keySpec = deriveKeyFromPassword(kDatos, salt);
+
             // Cifrar la clave privada
             Cipher cipher = Cipher.getInstance("AES");
-            SecretKeySpec keySpec = new SecretKeySpec(kDatos.getBytes(), "AES");
             cipher.init(Cipher.ENCRYPT_MODE, keySpec);
             byte[] encryptedPrivateKey = cipher.doFinal(privateKey);
 
@@ -40,6 +49,14 @@ public class DarwinNunez {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Método para derivar una clave AES válida a partir de una contraseña
+    private static SecretKeySpec deriveKeyFromPassword(String password, byte[] salt) throws Exception {
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+        SecretKey tmp = factory.generateSecret(spec);
+        return new SecretKeySpec(tmp.getEncoded(), "AES");
     }
 
     // Método para generar una clave AES de 128 bits
